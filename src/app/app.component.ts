@@ -23,6 +23,7 @@ import { CoreSitesProvider } from '@providers/sites';
 import { CoreLoginHelperProvider } from '@core/login/providers/helper';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
     templateUrl: 'app.html'
@@ -37,7 +38,7 @@ export class MoodleMobileApp implements OnInit {
     constructor(private platform: Platform, statusBar: StatusBar, logger: CoreLoggerProvider, keyboard: Keyboard,
             private eventsProvider: CoreEventsProvider, private loginHelper: CoreLoginHelperProvider, private zone: NgZone,
             private appProvider: CoreAppProvider, private langProvider: CoreLangProvider, private sitesProvider: CoreSitesProvider,
-            private screenOrientation: ScreenOrientation, app: IonicApp) {
+            private screenOrientation: ScreenOrientation, app: IonicApp, private  splashScreen:SplashScreen) {
         this.logger = logger.getInstance('AppComponent');
 
         platform.ready().then(() => {
@@ -47,6 +48,11 @@ export class MoodleMobileApp implements OnInit {
                 statusBar.styleLightContent();
             } else {
                 statusBar.styleDefault();
+                setTimeout(() => { 
+
+    this.splashScreen.hide();
+
+  }, 1000);
             }
 
             keyboard.hideFormAccessoryBar(false);
